@@ -17,12 +17,12 @@ def load_dataset():
     non_face = []
     face_dataset = []
 
-    dir_face = os.listdir('services/Face_Detection/faces_24x24')
-    dir_non_face = os.listdir('services/Face_Detection/non_faces_24x24')
+    dir_face = os.listdir('servicess/Face_Detection/faces_24x24')
+    dir_non_face = os.listdir('servicess/Face_Detection/non_faces_24x24')
 
     for i in range(100):
-        path_face = 'services/Face_Detection/faces_24x24' + dir_face[i]
-        path_non = 'services/Face_Detection/non_faces_24x24' + dir_non_face[i]
+        path_face = 'servicess/Face_Detection/faces_24x24' + dir_face[i]
+        path_non = 'servicess/Face_Detection/non_faces_24x24' + dir_non_face[i]
 
         image_face = cv.imread(path_face)
         if image_face is not None:
@@ -136,8 +136,8 @@ def display_sample_images():
     st.markdown("### Một số ảnh minh họa")
 
     # Đọc một vài ảnh từ folder face
-    face_dir = "services/Face_Detection/faces_24x24"
-    non_face_dir = "services/Face_Detection/non_faces_24x24"
+    face_dir = "servicess/Face_Detection/faces_24x24"
+    non_face_dir = "servicess/Face_Detection/non_faces_24x24"
 
     face_images = os.listdir(face_dir)
     non_face_images = os.listdir(non_face_dir)
@@ -176,7 +176,7 @@ def bbox_to_rect(pos, label):
 
 def display_testing():
     st.markdown("## 1.2 Tập dữ liệu Testing")
-    test_img_dir = 'services/Face_Detection/'
+    test_img_dir = 'servicess/Face_Detection/'
     imgs = os.listdir(os.path.join(test_img_dir, 'test_image'))
     labels = os.listdir(os.path.join(test_img_dir, 'annotation'))
     imgs.sort()
@@ -299,7 +299,7 @@ def face_detection_app():
     predict()
 
 
-cascade_file = 'services/Face_Detection/cascade_output/cascade.xml'
+cascade_file = 'servicess/Face_Detection/cascade_output/cascade.xml'
 tree = ET.parse(cascade_file)
 
 root = tree.getroot()
@@ -325,10 +325,10 @@ X_train = []
 
 X_train = []
 y_train = []
-with open('services/Face_Detection/training/X_train.pkl', 'rb') as file:
+with open('servicess/Face_Detection/training/X_train.pkl', 'rb') as file:
     X_train = pickle.load(file)
 
-with open('services/Face_Detection/training/y_train.pkl', 'rb') as file:
+with open('servicess/Face_Detection/training/y_train.pkl', 'rb') as file:
     y_train = pickle.load(file)
 
 X_train = X_train.reshape(-1, 1)
