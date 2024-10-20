@@ -299,7 +299,7 @@ def face_detection_app():
     predict()
 
 
-cascade_file = '../services/Face_Detection/cascade_output/cascade.xml'
+cascade_file = 'services/Face_Detection/cascade_output/cascade.xml'
 tree = ET.parse(cascade_file)
 
 root = tree.getroot()
