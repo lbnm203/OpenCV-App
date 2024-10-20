@@ -1,5 +1,5 @@
-from services.Face_Vertification.models.sface import SFace
-from services.Face_Vertification.models.yunet import YuNet
+from servicess.Face_Vertification.models.sface import SFace
+from servicess.Face_Vertification.models.yunet import YuNet
 import requests
 import random
 import time
