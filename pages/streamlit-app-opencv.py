@@ -22,11 +22,11 @@ if choice == 'GrabCut':
 if choice == 'WaterShed':
     st.title(" ✨ Ứng dụng phân đoạn WaterShed")
 
-    path = ['services/WaterShed/3xemay1128.jpg', 'services/WaterShed/3xemay925.jpg',
-            'services/WaterShed/3xemay918.jpg', 'services/WaterShed/3xemay1264.jpg']
+    path = ['servicess/WaterShed/3xemay1128.jpg', 'servicess/WaterShed/3xemay925.jpg',
+            'servicess/WaterShed/3xemay918.jpg', 'servicess/WaterShed/3xemay1264.jpg']
 
-    path_gt = ['services/WaterShed/3xemay1128.png', 'services/WaterShed/3xemay925.png',
-               'services/WaterShed/3xemay918.png', 'services/WaterShed/3xemay1264.png']
+    path_gt = ['servicess/WaterShed/3xemay1128.png', 'servicess/WaterShed/3xemay925.png',
+               'servicess/WaterShed/3xemay918.png', 'servicess/WaterShed/3xemay1264.png']
 
     # name = ['3xemay1128.jpg', '3xemay925.jpg', '3xemay918.jpg', '3xemay1264.jpg']
 
@@ -474,9 +474,9 @@ if choice == 'WaterShed':
 
 
 if choice == 'Haar Cascade':
-    # hr.face_detection_app()
-    pass
+    hr.face_detection_app()
+    # pass
 
 if choice == 'Face Verification':
-    # fv.sec1()
-    pass
+    fv.App()
+    # pass
