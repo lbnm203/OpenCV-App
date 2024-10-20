@@ -11,6 +11,7 @@ import haar_cascade as hr
 import face_vertificate as fv
 
 # import watershed_app as wt
+st.set_page_config(layout="wide")
 
 choice = st.sidebar.selectbox(
     "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification'], key="algorithm_selector")
