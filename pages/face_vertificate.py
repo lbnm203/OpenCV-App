@@ -1,5 +1,3 @@
-from Face_Vertification.models.sface import SFace
-from Face_Vertification.models.yunet import YuNet
 import requests
 import random
 import time
@@ -22,6 +20,9 @@ import json
 import firebase_admin
 import streamlit as st
 
+sys.path.append("./Face_Vertification") 
+from models.sface import SFace
+from models.yunet import YuNet
 # from services.face_verification.yunet import YuNet
 # from services.face_verification.sface import SFace
 
