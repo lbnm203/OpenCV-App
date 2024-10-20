@@ -200,7 +200,7 @@ def use():
         ## Hướng dẫn cách dùng
         - Tải ảnh muốn tách nền ở thanh bên trái
         - Chọn chế độ vẽ bên thanh trái
-        - Giữ chuột phải vào ảnh để vẽ hình chữ nhật quanh đối tượng cần tách nền
+        - Giữ chuột trái vào ảnh để vẽ hình chữ nhật quanh đối tượng cần tách nền
             - Lưu ý: vẽ hình chữ nhật đầu tiên và chỉ vẽ 1 lần. 
         - Để chỉnh sửa Foreground và Background, chọn chế độ ở thanh bên trái
         - Để hoàn tác các thao tác vừa thực hiện, click vào biểu tượng ↩️↪️ dưới ảnh
@@ -208,3 +208,4 @@ def use():
         - Ấn vào biểu tượng "Submit" để tiến hành chạy
 
     """)
+    st.divider()
