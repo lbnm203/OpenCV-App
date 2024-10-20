@@ -13,7 +13,7 @@ from PIL import Image, ImageOps, ImageDraw
 # from rembg import remove
 from streamlit_drawable_canvas import st_canvas
 
-# st.set_page_config(layout='wide')
+st.set_page_config(layout='wide')
 
 
 def run():
