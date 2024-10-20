@@ -66,7 +66,7 @@ def run():
 
         # Tạo thành phần canvas
         # img = Image.open('images/' + image_upload.name)
-        max_size = 520
+        max_size = 480
         w = min(img.width, max_size)
         h = w * img.height // img.width
         # print(img.width, img.height, w, h)
