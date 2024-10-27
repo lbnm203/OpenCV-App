@@ -1,3 +1,5 @@
+from models.yunet import YuNet
+from models.sface import SFace
 import requests
 import random
 import time
@@ -20,9 +22,7 @@ import json
 import firebase_admin
 import streamlit as st
 
-sys.path.append("./Face_Vertification") 
-from models.sface import SFace
-from models.yunet import YuNet
+sys.path.append("./Face_Vertification")
 # from services.face_verification.yunet import YuNet
 # from services.face_verification.sface import SFace
 
@@ -396,7 +396,6 @@ def CRUD():
                             "face-vertificate").document(i.id).delete()
                         st.success("Xóa thành công")
                         break
-
 
             # with col2:
             #     if st.button("Không"):

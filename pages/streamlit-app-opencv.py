@@ -9,12 +9,13 @@ import watershed_app as ws
 import matplotlib.pyplot as plt
 import haar_cascade as hr
 import face_vertificate as fv
+import semantic_keypoint_detection as skd
 
 
 # st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
-    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification'], key="algorithm_selector")
+    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -481,3 +482,6 @@ if choice == 'Haar Cascade':
 if choice == 'Face Verification':
     fv.App()
     # pass
+
+if choice == 'Semantic Keypoint Detection':
+    skd.display_datasets()
