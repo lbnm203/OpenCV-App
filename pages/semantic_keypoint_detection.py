@@ -293,12 +293,12 @@ def display_results():
 
 
 def run():
-    st.set_page_config(
-    page_title="Semantic Keypoint Detection bằng thuật toán SIFT và ORB",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-    st.title("Semantic Keypoint Detection bằng thuật toán SIFT và ORB")
+#     st.set_page_config(
+#     page_title="Semantic Keypoint Detection",
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
+    st.title("Semantic Keypoint Detection")
 
     display_datasets()
     display_methods()
