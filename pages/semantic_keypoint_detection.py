@@ -160,10 +160,10 @@ def display_methods():
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         
         # Phát hiện keypoints bằng SIFT
-        keypoints = sift.detectAndCompute(gray, None)
-        
+        keypoints, descriptors = sift.detectAndCompute(gray, None)
+    
         # Vẽ các keypoints SIFT lên ảnh gốc mà không vẽ ground truth
-        sift_image = cv2.drawKeypoints(image, keypoints, None, color=(0, 255, 0), flags=0)
+        sift_image = cv2.drawKeypoints(image, keypoints, None, color=(0, 255, 0), flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
         # Xác định vị trí hiển thị ảnh
         caption = os.path.basename(DATATYPES[i]).replace("draw_", "")
