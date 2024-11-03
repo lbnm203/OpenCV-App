@@ -12,7 +12,7 @@ import face_vertificate as fv
 import semantic_keypoint_detection as skd
 
 
-# st.set_page_config(layout='wide')
+st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
     "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection'], key="algorithm_selector")
