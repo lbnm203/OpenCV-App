@@ -132,11 +132,26 @@ def display_methods():
                 [*Distinctive Image Features from Scale-Invariant Keypoints*](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=cc58efc1f17e202a9c196f9df8afd4005d16042a). Thuật toán này chủ yếu được sử dụng để phát hiện và 
           mô tả các đặc trưng quan trọng trong hình ảnh, giúp nhận diện và phân loại đối tượng một cách hiệu quả.
 
-        - **SIFT** hoạt động bằng cách xác định các điểm đặc trưng (keypoints) trong một hình ảnh, sau đó tính toán
-          các đặc trưng mô tả cho mỗi điểm đó, đảm bảo rằng các đặc trưng này không thay đổi khi hình ảnh được thay đổi
-          về kích thước, góc nhìn hoặc ánh sáng. Điều này làm cho SIFT rất hữu ích trong các ứng dụng như nhận diện
-          đối tượng, ghép ảnh, và theo dõi đối tượng. Nhờ vào khả năng kháng lại biến đổi, SIFT đã trở thành một
-          trong những phương pháp phổ biến và đáng tin cậy trong lĩnh vực thị giác máy tính.
+        Các bước trong thuật toán SIFT 
+
+        - Phát hiện điểm đặc trưng (Keypoint Detection):
+            - SIFT sử dụng Gaussian Pyramid để tạo ra các phiên bản của ảnh gốc ở nhiều mức độ mờ khác nhau. Ảnh sau khi làm mờ sẽ được giảm kích thước để tạo thành một chuỗi ảnh đa tỷ lệ (scale space).
+            - Sau đó, SIFT áp dụng toán tử DoG (Difference of Gaussian) để tìm sự khác biệt giữa hai ảnh lân cận trong scale space. Các điểm cực trị trong DoG (cả tối đa và tối thiểu) là những điểm đặc trưng tiềm năng.
+        
+        - Định vị điểm đặc trưng (Keypoint Localization):
+            - Các điểm cực trị từ bước trước sẽ được kiểm tra để loại bỏ các điểm không ổn định (như điểm nằm ở viền ảnh hoặc điểm có độ tương phản thấp).
+        
+        - Định hướng cho điểm đặc trưng (Orientation Assignment):
+            - Mỗi điểm đặc trưng sẽ được gán một hướng (orientation) dựa trên độ dốc của ảnh tại vùng lân cận của điểm đó. Hướng này giúp điểm đặc trưng không thay đổi khi ảnh quay.
+        
+        - Mô tả điểm đặc trưng (Keypoint Descriptor):
+            - Xung quanh mỗi điểm đặc trưng, một vector đặc trưng sẽ được tạo ra bằng cách chia vùng lân cận của điểm đó thành các ô nhỏ.
+            - Trong mỗi ô, độ lớn và hướng của gradient sẽ được ghi nhận và xây dựng thành một histogram để tạo thành vector đặc trưng.
+            - Vector này sau đó sẽ được chuẩn hóa để giảm độ nhạy cảm với thay đổi về ánh sáng và độ tương phản.
+        
+        - Ghép các đặc trưng (Keypoint Matching):
+            - Các vector đặc trưng của SIFT từ hai ảnh khác nhau có thể được so sánh để tìm các cặp điểm tương đồng.
+            Thông thường, phương pháp ghép dựa trên khoảng cách Euclidean giữa các vector đặc trưng. Những cặp điểm có khoảng cách gần nhau sẽ được coi là cặp điểm tương đồng.
         """
     )
 
@@ -186,11 +201,21 @@ def display_methods():
         **ORB** kết hợp hai kỹ thuật chính: **FAST (Features from Accelerated Segment Test)** để phát hiện các điểm
         đặc trưng, và **BRIEF (Binary Robust Invariant Scalable Keypoints)** để mô tả chúng.
 
-        - **ORB** nổi bật với khả năng xử lý nhanh và tiêu tốn ít tài nguyên tính toán, nhờ vào việc sử dụng các phép toán
-          nhị phân đơn giản để tạo ra các đặc trưng. Điều này khiến nó rất phù hợp cho các ứng dụng thời gian thực, chẳng
-            hạn như nhận diện đối tượng và theo dõi chuyển động. Thêm vào đó, ORB cũng có khả năng kháng lại biến đổi về
-            kích thước và góc nhìn, giúp nó hoạt động hiệu quả trong nhiều điều kiện khác nhau. Nhờ vào những ưu điểm này,
-            ORB đã trở thành một lựa chọn phổ biến trong cộng đồng nghiên cứu và ứng dụng thị giác máy tính.
+
+        Các bước trong thuật toán ORB:
+
+        - Phát hiện điểm đặc trưng bằng FAST
+
+        - Tính toán hướng cho điểm đặc trưng 
+            - Sau khi phát hiện điểm đặc trưng, ORB tính toán hướng của chúng bằng cách gán hướng cho mỗi điểm đặc trưng,
+              ORB có thể tạo ra các đặc trưng có tính bất biến với góc xoay.
+
+        - Tạo bộ mô tả đặc trưng bằng BRIEF:
+            - ORB sử dụng bộ mô tả đặc trưng BRIEF, một bộ mô tả nhị phân giúp giảm thiểu kích thước dữ liệu và tăng tốc độ tính toán.
+            - BRIEF mô tả điểm đặc trưng bằng cách so sánh cường độ của các điểm ảnh trong vùng lân cận và tạo ra một vector nhị phân.
+
+        - Ghép các đặc trưng:
+            -  Các điểm đặc trưng từ hai ảnh có thể được so khớp. Những điểm có khoảng cách nhỏ nhất sẽ được coi là các cặp điểm tương đồng.     
 
         """
     )
