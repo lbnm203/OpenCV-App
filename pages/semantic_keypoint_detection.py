@@ -128,7 +128,8 @@ def display_methods():
         """
         ##### 2.1.1. Giới thiệu về thuật toán SIFT
         - **SIFT** SIFT (Scale-Invariant Feature Transform) là một thuật toán mạnh mẽ trong lĩnh vực xử lý hình ảnh,
-          được phát triển bởi David Lowe vào đầu những năm 2000. Thuật toán này chủ yếu được sử dụng để phát hiện và 
+          được phát triển bởi David Lowe vào năm 2004 trong bài báo 
+                [*Distinctive Image Features from Scale-Invariant Keypoints*](https://citeseerx.ist.psu.edu/document?repid=rep1&type=pdf&doi=cc58efc1f17e202a9c196f9df8afd4005d16042a). Thuật toán này chủ yếu được sử dụng để phát hiện và 
           mô tả các đặc trưng quan trọng trong hình ảnh, giúp nhận diện và phân loại đối tượng một cách hiệu quả.
 
         - **SIFT** hoạt động bằng cách xác định các điểm đặc trưng (keypoints) trong một hình ảnh, sau đó tính toán
@@ -179,8 +180,9 @@ def display_methods():
     st.markdown(
         """
         ##### 2.2.1. Giới thiệu về thuật toán ORB
-        - **ORB** (Oriented FAST and Rotated BRIEF) là một thuật toán phát hiện và mô tả đặc trưng trong hình ảnh,
-          được phát triển nhằm cải thiện tốc độ và hiệu quả so với các phương pháp trước đó như SIFT và SURF.
+        - **ORB** (Oriented FAST and Rotated BRIEF)  là một thuật toán phát hiện và mô tả đặc trưng trong hình ảnh,
+          được phát triển bởi Ethan Rublee, Vincent Rabaud, Kurt Konolige và Gary R. Bradski vào năm 2011 trong bài báo 
+        [*ORB: An efficient alternative to SIFT or SURF*](https://d1wqtxts1xzle7.cloudfront.net/90592905/145_s14_01-libre.pdf?1662172284=&response-content-disposition=inline%3B+filename%3DORB_An_efficient_alternative_to_SIFT_or.pdf&Expires=1729524210&Signature=dzhjTEuC-108NuiZwUIbVZStCXz5tryasM0l0sJpPx5kdMxzlIQ9ypiVK-Nrr7U4jRASqrmcG-7n0Q9nJhhEZpdOrtUd-Jw4zuBd53Z1tDUPa9BhZqImVlP3cQgAvMzsdoTsrV~yFTinoWzUKuuURdUn8jsWkqCgOzXur~sMPB4Svlihs-vGyIOL1b1hRbGLrNqwUM9KRXQAJuz2-kndG9S1zf-BReO262Qrjv7pmcgA6k4QdxajVDYqOnQDO89xUp2P0CjQwW0pwiOJ~RctdWw1fXQo2tmPPKvNsB-iXkOdKApkigZN27cAR2NH2NA39VOy~MkKHe1LefLCaSIeRw__&Key-Pair-Id=APKAJLOHF5GGSLRBV4ZA) nhằm cải thiện tốc độ và hiệu quả so với các phương pháp trước đó như SIFT và SURF.
         **ORB** kết hợp hai kỹ thuật chính: **FAST (Features from Accelerated Segment Test)** để phát hiện các điểm
         đặc trưng, và **BRIEF (Binary Robust Invariant Scalable Keypoints)** để mô tả chúng.
 
