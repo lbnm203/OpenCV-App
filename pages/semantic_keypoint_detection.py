@@ -7,7 +7,8 @@ import sys
 import random
 import altair as alt
 # Modify the sys.path to include the correct directory
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 # Update the import to use relative import
 from servicess.Sematic_Keypoint_Detection.draw_p import draw_points, DATATYPES, SERVICE_DIR
 
@@ -304,5 +305,3 @@ def run():
     display_evaluation()
     display_results()
     display_discussion()
-
-run()

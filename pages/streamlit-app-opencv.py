@@ -484,4 +484,4 @@ if choice == 'Face Verification':
     # pass
 
 if choice == 'Semantic Keypoint Detection':
-    skd.display_datasets()
+    skd.run()
