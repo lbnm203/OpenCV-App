@@ -117,6 +117,7 @@ def display_evaluation():
         """
         - Keypoint đó được cho là dự đoán đúng nếu khoảng cách Euclidean của Keypoint đó so với khoảng cách của Keypoint thực tế không lớn hơn threshold = 5.
         - Công thức Euclidean:
+        
         $d(true, predict) = \sqrt{(x_{true} - x_{predict}) ^ 2 + (y_{true} - y_{predict}) ^ 2}$
 
         """
