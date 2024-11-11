@@ -8,9 +8,10 @@ from sklearn.metrics.pairwise import cosine_similarity
 from PIL import Image
 import sys
 
+sys.path.append('servicess')
 # Alternative: Use script location as reference
 # model_directory = os.path.join(os.path.dirname(__file__))
-model_directory = "servicess/Instance_Search/"
+model_directory = "servicess/Instance_Search"
 # Đường dẫn đến thư mục chứa ảnh thử nghiệm
 test_directory = os.path.join(model_directory, "test")
 
@@ -70,7 +71,7 @@ def find_similar_images(query_vector, frequency_vectors, image_paths, top_n=5):
 
 def run():
     # Thiết lập giao diện Streamlit
-    st.title("Tìm Kiếm Ảnh Tương Tự(Trái cây)")
+    st.title("Instance Search")
 
     uploaded_file = st.file_uploader(
         "Tải lên một ảnh", type=["jpg", "png", "jpeg"])
