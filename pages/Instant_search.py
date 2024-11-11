@@ -88,17 +88,13 @@ def run():
                 similar_images = find_similar_images(
                     query_vector, frequency_vectors, image_paths, top_n=top_n)
 
-                st.write("5 Ảnh Tương Tự Nhất:")
+                st.write("{top_n} Ảnh Tương Tự Nhất:")
                 for img_path, similarity in similar_images:
-                    # Construct full path
-                    full_image_path = os.path.join(
-                        test_directory, img_path)
-                    if os.path.exists(full_image_path):
-                        st.write(f"Độ tương đồng: {similarity:.2f}")
-                        similar_image = Image.open(full_image_path)
-                        st.image(similar_image, caption=full_image_path,
-                                 use_column_width=True)
-                    else:
-                        st.warning(f"Ảnh không tồn tại: {full_image_path}")
+                    # Kết hợp đường dẫn của ảnh thử nghiệm với đường dẫn đã lưu
+                    full_image_path = os.path.join(test_directory, img_path)
+                    st.write(f"Độ tương đồng: {similarity:.2f}")
+                    similar_image = Image.open(full_image_path)
+                    st.image(similar_image, caption=full_image_path,
+                             use_column_width=True)
             else:
                 st.error("Không tìm thấy đặc trưng trong ảnh tải lên.")
