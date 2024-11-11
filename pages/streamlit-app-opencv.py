@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import haar_cascade as hr
 import face_vertificate as fv
 import semantic_keypoint_detection as skd
+import Instant_search as ints
 
 
 st.set_page_config(layout='wide')
@@ -464,8 +465,8 @@ if choice == 'WaterShed':
     #     st.markdown("#### 1.2 Tập Test")
     #     img_training(2, 3)
 
-    # st.markdown("""#### Các tham số được sử dụng trong ứng dụng 
-    # - Kernel = 3x3, 5x5, 7x7        
+    # st.markdown("""#### Các tham số được sử dụng trong ứng dụng
+    # - Kernel = 3x3, 5x5, 7x7
     # - Threshold = 0.0 -> 0.5
     #             """)
     # load_image()
@@ -490,4 +491,4 @@ if choice == 'Keypoint Matching':
     st.title("Keypoint Matching")
 
 if choice == 'Instant Search':
-    st.title("Instant Search")
+    ints.run()
