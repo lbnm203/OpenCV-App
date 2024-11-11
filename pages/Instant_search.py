@@ -77,7 +77,8 @@ def run():
         "Tải lên một ảnh", type=["jpg", "png", "jpeg"])
     if uploaded_file is not None:
         query_image = Image.open(uploaded_file)
-        st.image(query_image, caption="Ảnh đã tải lên", use_column_width=True)
+        st.image(query_image, caption="Ảnh đã tải lên",
+                 use_column_width=True, width=800)
 
         # Trích xuất vector BoVW cho ảnh truy vấn
         top_n = st.slider("Số lượng ảnh tương đồng cần hiển thị", 1, 100, 5)
@@ -90,11 +91,15 @@ def run():
 
                 st.write("{top_n} Ảnh Tương Tự Nhất:")
                 for img_path, similarity in similar_images:
-                    # Kết hợp đường dẫn của ảnh thử nghiệm với đường dẫn đã lưu
-                    full_image_path = os.path.join(test_directory, img_path)
-                    st.write(f"Độ tương đồng: {similarity:.2f}")
-                    similar_image = Image.open(full_image_path)
-                    st.image(similar_image, caption=full_image_path,
-                             use_column_width=True)
+                    # Construct full path
+                    full_image_path = os.path.join(
+                        test_directory, img_path)
+                    if os.path.exists(full_image_path):
+                        st.write(f"Độ tương đồng: {similarity:.2f}")
+                        similar_image = Image.open(full_image_path)
+                        st.image(similar_image, caption=full_image_path,
+                                 use_column_width=True)
+                    else:
+                        st.warning(f"Ảnh không tồn tại: {full_image_path}")
             else:
                 st.error("Không tìm thấy đặc trưng trong ảnh tải lên.")
