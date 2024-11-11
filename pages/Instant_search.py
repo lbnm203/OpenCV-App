@@ -7,13 +7,10 @@ from scipy.cluster.vq import vq
 from sklearn.metrics.pairwise import cosine_similarity
 from PIL import Image
 import sys
-sys.path.append('servicess')
 
-# Đường dẫn đến thư mục chứa tệp mô hình và dữ liệu
-# Đường dẫn đến thư mục chứa mô hình và dữ liệu
 # Alternative: Use script location as reference
-model_directory = os.path.join(os.path.dirname(__file__))
-# model_directory = "servicess/Instance_Search/"
+# model_directory = os.path.join(os.path.dirname(__file__))
+model_directory = "servicess/Instance_Search/"
 # Đường dẫn đến thư mục chứa ảnh thử nghiệm
 test_directory = os.path.join(model_directory, "test")
 
