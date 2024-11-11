@@ -89,7 +89,7 @@ def run():
                 similar_images = find_similar_images(
                     query_vector, frequency_vectors, image_paths, top_n=top_n)
 
-                st.write("{top_n} Ảnh Tương Tự Nhất:")
+                st.write("Ảnh Tương Tự Nhất:")
                 for img_path, similarity in similar_images:
                     # Construct full path
                     full_image_path = os.path.join(
