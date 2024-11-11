@@ -15,7 +15,7 @@ import semantic_keypoint_detection as skd
 st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
-    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection'], key="algorithm_selector")
+    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection', 'Keypoint Matching', 'Instant Search'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -485,3 +485,9 @@ if choice == 'Face Verification':
 
 if choice == 'Semantic Keypoint Detection':
     skd.run()
+
+if choice == 'Keypoint Matching':
+    st.title("Keypoint Matching")
+
+if choice == 'Instant Search':
+    st.title("Instant Search")
