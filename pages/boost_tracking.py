@@ -43,7 +43,7 @@ def main():
     # if video_data:
     #     st.video(video_data)
 
-    with open('../servicess/Instance_Search/output_tracked_video.avi', 'rb') as video_file:
+    with open('servicess/Instance_Search/output_tracked_video.avi', 'rb') as video_file:
         video_bytes = video_file.read()
         st.video(video_bytes)
     # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
