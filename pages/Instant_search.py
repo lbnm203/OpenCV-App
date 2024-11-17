@@ -4,6 +4,8 @@ import streamlit as st
 import os
 import torch
 import sys
+from sklearn.cluster import KMeans
+from sklearn.metrics.pairwise import cosine_similarity
 
 sys.path.append('./servicess/Instance_Search')
 from Superpoint import SuperPointNet
