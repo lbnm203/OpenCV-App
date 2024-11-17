@@ -27,7 +27,21 @@ def main():
 
     st.markdown("### 3. Ví dụ minh họa")
 
-    st.video('servicess/Instance_Search/output_tracked_video.avi')
+    # st.video('servicess/Instance_Search/output_tracked_video.avi')
+    @st.cache_data
+    def download_video(url):
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.content
+        else:
+            st.error("Không thể tải video.")
+
+    # URL của video
+    video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
+    video_data = download_video(video_url)
+
+    if video_data:
+        st.video(video_data)
     # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
     # # Tải video và lưu tạm vào bộ nhớ
     # response = requests.get(video_url)
