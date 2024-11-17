@@ -1,105 +1,141 @@
-import os
-import streamlit as st
-import numpy as np
 import cv2
-import joblib
-from scipy.cluster.vq import vq
-from sklearn.metrics.pairwise import cosine_similarity
-from PIL import Image
+import numpy as np
+import streamlit as st
+import os
+import torch
 import sys
 
-sys.path.append('servicess')
-# Alternative: Use script location as reference
-# model_directory = os.path.join(os.path.dirname(__file__))
-model_directory = "servicess/Instance_Search"
-# Đường dẫn đến thư mục chứa ảnh thử nghiệm
-test_directory = os.path.join(model_directory, "test")
+sys.path.append('./service/Instance_Search')
+from Superpoint import SuperPointNet
 
-# Tải các mô hình và dữ liệu đã lưu
-codebook_path = os.path.join(
-    model_directory, "bovw_codebook.joblib")
-frequency_vectors_path = os.path.join(
-    model_directory, "frequency_vectors.joblib")
-image_paths_path = os.path.join(
-    model_directory, "image_paths.joblib")
+st.set_page_config(layout='wide')
 
-codebook = joblib.load(codebook_path)
-frequency_vectors = joblib.load(frequency_vectors_path)
-image_paths = joblib.load(image_paths_path)
-
-# Thiết lập SIFT cho việc trích xuất đặc trưng
-sift = cv2.SIFT_create()
-k = codebook.shape[0]  # Số lượng visual words
+# Predefined dataset folder path
+data_folder_path = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), 'storm'))
 
 
-def extract_bovw_vector(image, codebook, k):
-    # Tiền xử lý và trích xuất đặc trưng SIFT từ ảnh đầu vào
-    img = np.array(image)
+def load_images_from_folder(folder_path):
+    images = []
+    for filename in os.listdir(folder_path):
+        img_path = os.path.join(folder_path, filename)
+        img = cv2.imread(img_path)
+        if img is not None:
+            images.append(img)
+    return images
 
-    if len(img.shape) == 3 and img.shape[2] == 3:
-        img_resized = cv2.resize(
-            img, (200, int(200 * img.shape[0] / img.shape[1])))
-        img_smoothed = cv2.GaussianBlur(img_resized, (5, 5), 0)
-        img_gray = cv2.cvtColor(img_smoothed, cv2.COLOR_BGR2GRAY)
-    elif len(img.shape) == 2:  # Ảnh đã ở dạng grayscale
-        img_gray = img
-    else:
-        st.error("Định dạng ảnh không hợp lệ.")
-        return None
+def load_superpoint_model():
+    model = SuperPointNet()
+    model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), 'superpoint_v1.pth'))
+    model.load_state_dict(torch.load(model_path))
+    model.eval()
+    return model
 
-    # Trích xuất đặc trưng SIFT
-    _, descriptors = sift.detectAndCompute(img_gray, None)
-    if descriptors is None:
-        return None
+def image_query_matching(query_image, dataset_images, use_sift=True, use_orb=True, use_superpoint=False):
+    # Initialize feature detectors
+    if use_sift:
+        sift = cv2.SIFT_create()
+    if use_orb:
+        orb = cv2.ORB_create()
+    if use_superpoint:
+        superpoint = load_superpoint_model()
+    
+    results = []
 
-    # Mã hóa các đặc trưng thành vector BoVW
-    visual_words, _ = vq(descriptors, codebook)
-    bovw_vector = np.zeros(k)
-    for word in visual_words:
-        bovw_vector[word] += 1
+    # Iterate over dataset images
+    for dataset_image in dataset_images:
+        # Initialize lists for keypoints and descriptors
+        keypoints_query, descriptors_query = [], []
+        keypoints_dataset, descriptors_dataset = [], []
 
-    return bovw_vector
+        # Detect features in the query image
+        if use_sift:
+            kp, des = sift.detectAndCompute(query_image, None)
+            keypoints_query.extend(kp)
+            if des is not None: descriptors_query.append(des)
+        if use_orb:
+            kp, des = orb.detectAndCompute(query_image, None)
+            keypoints_query.extend(kp)
+            if des is not None: descriptors_query.append(des)
+        if use_superpoint:
+            # SuperPoint inference for query image
+            input_tensor = torch.from_numpy(query_image).unsqueeze(0).unsqueeze(0).float() / 255.0
+            with torch.no_grad():
+                output = superpoint(input_tensor)
+                kp = output['keypoints'][0].numpy()
+                des = output['descriptors'][0].numpy().T
+                keypoints_query.extend(kp)
+                if des is not None: descriptors_query.append(des)
 
+        # Detect features in the dataset image
+        if use_sift:
+            kp, des = sift.detectAndCompute(dataset_image, None)
+            keypoints_dataset.extend(kp)
+            if des is not None: descriptors_dataset.append(des)
+        if use_orb:
+            kp, des = orb.detectAndCompute(dataset_image, None)
+            keypoints_dataset.extend(kp)
+            if des is not None: descriptors_dataset.append(des)
+        if use_superpoint:
+            # SuperPoint inference for dataset image
+            input_tensor = torch.from_numpy(dataset_image).unsqueeze(0).unsqueeze(0).float() / 255.0
+            with torch.no_grad():
+                output = superpoint(input_tensor)
+                kp = output['keypoints'][0].numpy()
+                des = output['descriptors'][0].numpy().T
+                keypoints_dataset.extend(kp)
+                if des is not None: descriptors_dataset.append(des)
 
-def find_similar_images(query_vector, frequency_vectors, image_paths, top_n=5):
-    # Tính độ tương đồng cosine giữa vector truy vấn và tất cả vector BoVW
-    similarities = cosine_similarity([query_vector], frequency_vectors)[0]
-    top_indices = np.argsort(similarities)[-top_n:][::-1]
-    top_images = [(image_paths[i], similarities[i]) for i in top_indices]
-    return top_images
+        # Convert descriptors to a unified format for matching
+        descriptors_query = np.vstack([des for des in descriptors_query if des.shape[1] == descriptors_query[0].shape[1]])
+        descriptors_dataset = np.vstack([des for des in descriptors_dataset if des.shape[1] == descriptors_dataset[0].shape[1]])
 
+        # Use BFMatcher to match descriptors
+        bf = cv2.BFMatcher(cv2.NORM_L2, crossCheck=True)
+        matches = bf.match(descriptors_query, descriptors_dataset)
 
-def run():
-    # Thiết lập giao diện Streamlit
-    st.title("Instance Search")
+        # Sort matches based on distance
+        matches = sorted(matches, key=lambda x: x.distance)
 
-    uploaded_file = st.file_uploader(
-        "Tải lên một ảnh", type=["jpg", "png", "jpeg"])
-    if uploaded_file is not None:
-        query_image = Image.open(uploaded_file)
-        st.image(query_image, caption="Ảnh đã tải lên",
-                 use_column_width=True, width=800)
+        # Store the results with a simple measure of matching quality (e.g., number of good matches)
+        matching_quality = len(matches)
+        results.append((dataset_image, matching_quality))
 
-        # Trích xuất vector BoVW cho ảnh truy vấn
-        top_n = st.slider("Số lượng ảnh tương đồng cần hiển thị", 1, 100, 5)
-        if st.button('Tìm kiếm'):
-            query_vector = extract_bovw_vector(query_image, codebook, k)
-            if query_vector is not None:
-                # Tìm ảnh tương tự
-                similar_images = find_similar_images(
-                    query_vector, frequency_vectors, image_paths, top_n=top_n)
+    # Sort results based on matching quality
+    results = sorted(results, key=lambda x: x[1], reverse=True)
 
-                st.write("Ảnh Tương Tự Nhất:")
-                for img_path, similarity in similar_images:
-                    # Construct full path
-                    full_image_path = os.path.join(
-                        test_directory, img_path)
-                    if os.path.exists(full_image_path):
-                        st.write(f"Độ tương đồng: {similarity:.2f}")
-                        similar_image = Image.open(full_image_path)
-                        st.image(similar_image, caption=full_image_path,
-                                 use_column_width=True)
-                    else:
-                        st.warning(f"Ảnh không tồn tại: {full_image_path}")
-            else:
-                st.error("Không tìm thấy đặc trưng trong ảnh tải lên.")
+    return results
+
+# Streamlit interface
+def main():
+    st.title("Image Query Matching System")
+    st.sidebar.header("Feature Detector Options")
+    use_sift = st.sidebar.checkbox("Use SIFT", value=True)
+    use_orb = st.sidebar.checkbox("Use ORB", value=True)
+    use_superpoint = st.sidebar.checkbox("Use SuperPoint", value=False)
+
+    query_image_file = st.file_uploader("Upload Query Image", type=["jpg", "jpeg", "png"])
+    with st.expander("Thông tin ảnh truy vấn"):
+        st.image(query_image_file, channels="BGR", width=850)
+
+    k = st.slider('Chọn số lượng ảnh tương đồng cần hiển thị', 1, 30, 1)
+    if st.button('Tìm kiếm'):
+        with st.spinner('Đang tìm kiếm'):
+            if query_image_file:
+                query_image = cv2.imdecode(np.frombuffer(query_image_file.read(), np.uint8), cv2.IMREAD_COLOR)
+                dataset_images = load_images_from_folder(data_folder_path)    
+
+                if not dataset_images:
+                    st.error("No images found in the specified folder.")
+                else:
+                    results = image_query_matching(query_image, dataset_images, use_sift=use_sift, use_orb=use_orb, use_superpoint=use_superpoint)
+                    results = results[:k]  
+
+                    with st.expander("Kết quả"):
+
+                        for row_start in range(0, len(results), 5):
+                            cols = st.columns(5)
+                            for idx, (image, quality) in enumerate(results[row_start:row_start + 5]):
+                                with cols[idx]:
+                                    st.image(image, caption=f"Dataset Image {row_start + idx + 1} - Matching Quality: {quality}", use_column_width=True, channels="BGR")
+

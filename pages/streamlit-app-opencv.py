@@ -491,4 +491,4 @@ if choice == 'Keypoint Matching':
     st.title("Keypoint Matching")
 
 if choice == 'Instant Search':
-    ints.run()
+    ints.main()
