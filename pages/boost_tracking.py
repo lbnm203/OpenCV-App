@@ -27,17 +27,17 @@ def main():
 
     st.markdown("### 3. Ví dụ minh họa")
 
-    # st.video('servicess/Instance_Search/output_tracked_video.avi')
-    video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
-    # Tải video và lưu tạm vào bộ nhớ
-    response = requests.get(video_url)
-    if response.status_code == 200:
-        with open("output_tracked_video.avi", "wb") as f:
-            f.write(response.content)
-        # Sử dụng file đã tải về để hiển thị trong Streamlit
-        with open("output_tracked_video.avi", "rb") as video_file:
-            video_bytes = video_file.read()
-            st.video(video_bytes)
+    st.video('servicess/Instance_Search/output_tracked_video.avi')
+    # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
+    # # Tải video và lưu tạm vào bộ nhớ
+    # response = requests.get(video_url)
+    # if response.status_code == 200:
+    #     with open("output_tracked_video.avi", "wb") as f:
+    #         f.write(response.content)
+    #     # Sử dụng file đã tải về để hiển thị trong Streamlit
+    #     with open("output_tracked_video.avi", "rb") as video_file:
+    #         video_bytes = video_file.read()
+    #         st.video(video_bytes)
 
     st.markdown(
     "### 4. Các thách thức trong Object Tracking với Boosting Tracker")
