@@ -5,7 +5,7 @@ import os
 import torch
 import sys
 
-sys.path.append('./service/Instance_Search')
+sys.path.append('./servicess/Instance_Search')
 from Superpoint import SuperPointNet
 
 st.set_page_config(layout='wide')
