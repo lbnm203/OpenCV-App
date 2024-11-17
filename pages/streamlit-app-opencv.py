@@ -17,7 +17,7 @@ import boost_tracking as bt
 st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
-    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection', 'Keypoint Matching', 'Instant Search'], key="algorithm_selector")
+    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection', 'Keypoint Matching', 'Instant Search', 'Boost Tracking'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
