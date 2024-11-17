@@ -11,6 +11,7 @@ import haar_cascade as hr
 import face_vertificate as fv
 import semantic_keypoint_detection as skd
 import Instant_search as ints
+import boost_tracking as bt
 
 
 st.set_page_config(layout='wide')
@@ -492,3 +493,6 @@ if choice == 'Keypoint Matching':
 
 if choice == 'Instant Search':
     ints.main()
+
+if choice == 'Boost Tracking':
+    bt.main()
