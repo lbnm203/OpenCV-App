@@ -8,7 +8,7 @@ import sys
 sys.path.append('./servicess/Instance_Search')
 from Superpoint import SuperPointNet
 
-st.set_page_config(layout='wide')
+# st.set_page_config(layout='wide')
 
 # Predefined dataset folder path
 data_folder_path = os.path.abspath(
