@@ -37,11 +37,15 @@ def main():
             st.error("Không thể tải video.")
 
     # URL của video
-    video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
-    video_data = download_video(video_url)
+    # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
+    # video_data = download_video(video_url)
 
-    if video_data:
-        st.video(video_data)
+    # if video_data:
+    #     st.video(video_data)
+
+    with open('../servicess/Instance_Search/output_tracked_video.avi', 'rb') as video_file:
+        video_bytes = video_file.read()
+        st.video(video_bytes)
     # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
     # # Tải video và lưu tạm vào bộ nhớ
     # response = requests.get(video_url)
