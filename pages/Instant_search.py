@@ -12,7 +12,8 @@ from Superpoint import SuperPointNet
 
 # Predefined dataset folder path
 data_folder_path = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), 'storm'))
+    os.path.join(os.path.dirname(__file__), '../servicess/Instance_Search/storm')
+)
 
 
 def load_images_from_folder(folder_path):
@@ -115,6 +116,12 @@ def main():
     use_superpoint = st.sidebar.checkbox("Use SuperPoint", value=False)
 
     query_image_file = st.file_uploader("Upload Query Image", type=["jpg", "jpeg", "png"])
+    if query_image_file is not None:  # Kiểm tra nếu file đã được upload
+        with st.expander("Thông tin ảnh truy vấn"):
+            st.image(query_image_file, channels="BGR", width=850)
+    else:
+        st.warning("Vui lòng upload một file ảnh để tiếp tục.")
+
     with st.expander("Thông tin ảnh truy vấn"):
         st.image(query_image_file, channels="BGR", width=850)
 
