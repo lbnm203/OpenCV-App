@@ -4,6 +4,7 @@ import tempfile
 import pandas as pd
 import requests
 
+
 def main():
     # Tạo giao diện ứng dụng Streamlit
     st.title(" ✨ Boosting Object Tracking")
@@ -17,13 +18,20 @@ def main():
     st.markdown("- Thuật toán Boosting Tracker được giới thiệu trong bài báo khoa học **Real-Time Tracking via On-line Boosting** bởi các tác giả **Helmut Grabner, Michael Grabner, và Horst Bischof** được xuất bản vào tháng 1 năm 2006.")
     st.markdown("- **Boosting Tracker** là một kỹ thuật theo dõi đối tượng trong thời gian thực sử dụng thuật toán AdaBoost trực tuyến để lựa chọn đặc trưng và phân loại đối tượng mục tiêu từ nền. Thuật toán này xem bài toán theo dõi như một bài toán phân loại nhị phân, trong đó đối tượng được phân biệt với nền bởi một bộ phân loại.")
 
-    st.markdown("### 2. Các bước trong thuật toán Boosting Tracker")
-    st.markdown("1. **Khởi tạo Tracker:** Lựa chọn đối tượng cần theo dõi từ khung hình đầu tiên của video. Thiết lập một bộ phân loại với AdaBoost để phân biệt giữa đối tượng và nền.")
-    st.markdown("2. **Huấn luyện Bộ Phân Loại:** Sử dụng các bộ phân loại yếu (như decision stumps) để huấn luyện một bộ phân loại mạnh trên các đặc trưng của đối tượng.")
-    st.markdown("3. **Cập nhật Bộ Phân Loại:** Mỗi khung hình tiếp theo, bộ phân loại sẽ được cập nhật để thích ứng với sự thay đổi của vật thể.")
-    st.markdown("4. **Xác định Vị Trí Đối Tượng:** Bộ phân loại sau đó được sử dụng để xác định vị trí đối tượng trong khung hình tiếp theo, bằng cách tính toán độ tin cậy của mỗi cửa sổ con trong khung hình.")
-    st.markdown(
-        "5. **Theo Dõi Đối Tượng:** Quá trình lặp lại cho đến khi kết thúc video.")
+    st.markdown("""
+        ### 2. Các bước trong thuật toán Boosting Tracker
+            - Bước 1: **Khởi tạo Tracker:** Lựa chọn đối tượng cần theo dõi từ khung hình đầu tiên của video. Thiết lập một bộ phân loại với AdaBoost để phân biệt giữa đối tượng và nền.
+            - Bước 2: **Huấn luyện Bộ Phân Loại:** Sử dụng các bộ phân loại yếu (như decision stumps) để huấn luyện một bộ phân loại mạnh trên các đặc trưng của đối tượng.
+            - Bước 3: **Cập nhật Bộ Phân Loại:** Mỗi khung hình tiếp theo, bộ phân loại sẽ được cập nhật để thích ứng với sự thay đổi của vật thể.
+            - Bước 4: **Xác định Vị Trí Đối Tượng:** Bộ phân loại sau đó được sử dụng để xác định vị trí đối tượng trong khung hình tiếp theo, bằng cách tính toán độ tin cậy của mỗi cửa sổ con trong khung hình.    
+            - Bước 5: **Theo Dõi Đối Tượng:** Quá trình lặp lại cho đến khi kết thúc video.
+    """)
+    # st.markdown("### 2. Các bước trong thuật toán Boosting Tracker")
+    # st.markdown("1. **Khởi tạo Tracker:** Lựa chọn đối tượng cần theo dõi từ khung hình đầu tiên của video. Thiết lập một bộ phân loại với AdaBoost để phân biệt giữa đối tượng và nền.")
+    # st.markdown("2. **Huấn luyện Bộ Phân Loại:** Sử dụng các bộ phân loại yếu (như decision stumps) để huấn luyện một bộ phân loại mạnh trên các đặc trưng của đối tượng.")
+    # st.markdown("3. **Cập nhật Bộ Phân Loại:** Mỗi khung hình tiếp theo, bộ phân loại sẽ được cập nhật để thích ứng với sự thay đổi của vật thể.")
+    # st.markdown("4. **Xác định Vị Trí Đối Tượng:** Bộ phân loại sau đó được sử dụng để xác định vị trí đối tượng trong khung hình tiếp theo, bằng cách tính toán độ tin cậy của mỗi cửa sổ con trong khung hình.")
+    # st.markdown("5. **Theo Dõi Đối Tượng:** Quá trình lặp lại cho đến khi kết thúc video.")
 
     st.markdown("### 3. Ví dụ minh họa")
 
@@ -60,7 +68,7 @@ def main():
     #         st.video(video_bytes)
 
     st.markdown(
-    "### 4. Các thách thức trong Object Tracking với Boosting Tracker")
+        "### 4. Các thách thức trong Object Tracking với Boosting Tracker")
 
     data_challenges = {
         "Thách thức": [
