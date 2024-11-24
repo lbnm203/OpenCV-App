@@ -485,7 +485,6 @@ if choice == 'Haar Cascade':
 
 if choice == 'Face Verification':
     fv.App()
-    st.title(" ✨ Face Verification")
 
 if choice == 'Semantic Keypoint Detection':
     skd.run()
