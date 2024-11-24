@@ -4,7 +4,6 @@ import matplotlib.pyplot as plt
 import sys
 import numpy as np
 
-st.set_page_config(layout='wide')
 
 sys.path.append('servicess/Object_Tracking')
 
