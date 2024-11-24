@@ -12,8 +12,6 @@ def display_intro():
     st.title(" ✨ Thuật Toán SORT (Simple Online and Realtime Tracking)")
     st.divider()
 
-    st.sidebar.checkbox("Sorting")
-
     st.markdown("## 1. Giới Thiệu  ")
     col1, col2 = st.columns(2)
     with col1:
