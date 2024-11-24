@@ -43,9 +43,11 @@ def main():
     # if video_data:
     #     st.video(video_data)
 
-    with open('servicess/Instance_Search/output_tracked_video.avi', 'rb') as video_file:
-        video_bytes = video_file.read()
-        st.video(video_bytes)
+    # with open('servicess/Instance_Search/output_tracked_video.mp4', 'rb') as video_file:
+    #     video_bytes = video_file.read()
+    #     st.video(video_bytes)
+
+    st.video('servicess/Instance_Search/output_tracked_video.mp4')
     # video_url = "https://github.com/lbnm203/OpenCV-App/blob/master/servicess/Instance_Search/output_tracked_video.avi"
     # # Tải video và lưu tạm vào bộ nhớ
     # response = requests.get(video_url)

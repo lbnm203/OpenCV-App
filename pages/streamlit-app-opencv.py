@@ -12,12 +12,14 @@ import face_vertificate as fv
 import semantic_keypoint_detection as skd
 import Instant_search as ints
 import boost_tracking as bt
+import sort_app as sa
 
 
 st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
-    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection', 'Keypoint Matching', 'Instant Search', 'Boost Tracking'], key="algorithm_selector")
+    "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection',
+                         'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -496,3 +498,6 @@ if choice == 'Instant Search':
 
 if choice == 'Boost Tracking':
     bt.main()
+
+if choice == 'SORT':
+    sa.run()
