@@ -19,7 +19,7 @@ st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
     "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection',
-                         'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT'], key="algorithm_selector")
+                        'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -485,13 +485,13 @@ if choice == 'Haar Cascade':
 
 if choice == 'Face Verification':
     fv.App()
-    # pass
+    st.title(" ✨ Face Verification")
 
 if choice == 'Semantic Keypoint Detection':
     skd.run()
 
 if choice == 'Keypoint Matching':
-    st.title("Keypoint Matching")
+    st.title(" ✨ Keypoint Matching")
 
 if choice == 'Instant Search':
     ints.main()
