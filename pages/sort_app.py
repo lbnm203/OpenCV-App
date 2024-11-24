@@ -34,7 +34,7 @@ def display_intro():
 
     with col2:
         st.columns([1, 4, 1])[1].image(
-            "D:/OpenCV-App\servicess/Object_Tracking/benchmark.png",
+            "servicess/Object_Tracking/benchmark.png",
             use_column_width=True,
             caption="Hiệu suất của thuật toán SORT so với thuật toán khác dựa trên sự so sánh giữa Speed (Tốc độ) và Accuracy (Độ chính xác) ",
         )
@@ -56,7 +56,7 @@ def display_method():
     #          caption="Minh họa thuật toán SORT ")
 
     st.columns([1, 7.5, 1])[1].image(
-        "D:\OpenCV-App\servicess\Object_Tracking\sort_alg.jpg",
+        "servicess/Object_Tracking/sort_alg.jpg",
         use_column_width=True,
         caption="Hình ảnh minh họa thuật toán SORT",
     )
@@ -100,7 +100,7 @@ def display_method():
     """)
 
     st.columns([1, 2, 1])[1].image(
-        "D:\OpenCV-App\servicess\Object_Tracking\IoU.png",
+        "servicess/Object_Tracking/IoU.png",
         use_column_width=True,
         caption="Hình ảnh minh họa Intersection over Union (IoU)",
     )
