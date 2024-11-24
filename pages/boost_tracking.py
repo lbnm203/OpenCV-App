@@ -18,9 +18,9 @@ def main():
     st.markdown("- Thuật toán Boosting Tracker được giới thiệu trong bài báo khoa học **Real-Time Tracking via On-line Boosting** bởi các tác giả **Helmut Grabner, Michael Grabner, và Horst Bischof** được xuất bản vào tháng 1 năm 2006.")
     st.markdown("- **Boosting Tracker** là một kỹ thuật theo dõi đối tượng trong thời gian thực sử dụng thuật toán AdaBoost trực tuyến để lựa chọn đặc trưng và phân loại đối tượng mục tiêu từ nền. Thuật toán này xem bài toán theo dõi như một bài toán phân loại nhị phân, trong đó đối tượng được phân biệt với nền bởi một bộ phân loại.")
 
-    st.markdown("""
-        ### 2. Các bước trong thuật toán Boosting Tracker
-                
+    st.markdown(""" ### 2. Các bước trong thuật toán Boosting Tracker   """)
+
+    st.markdown("""             
             - Bước 1: **Khởi tạo Tracker:** Lựa chọn đối tượng cần theo dõi từ khung hình đầu tiên của video. Thiết lập một bộ phân loại với AdaBoost để phân biệt giữa đối tượng và nền.
                 
             - Bước 2: **Huấn luyện Bộ Phân Loại:** Sử dụng các bộ phân loại yếu (như decision stumps) để huấn luyện một bộ phân loại mạnh trên các đặc trưng của đối tượng.
