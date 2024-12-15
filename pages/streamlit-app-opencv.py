@@ -13,13 +13,14 @@ import semantic_keypoint_detection as skd
 import Instant_search as ints
 import boost_tracking as bt
 import sort_app as sa
+import hand_written_regconition as hwr
 
 
 st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
     "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection',
-                        'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT'], key="algorithm_selector")
+                        'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT', "Hand Writting Recognition"], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -500,3 +501,6 @@ if choice == 'Boost Tracking':
 
 if choice == 'SORT':
     sa.run()
+
+if choice == 'Hand Writting Recognition':
+    hwr.Text()
