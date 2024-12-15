@@ -27,7 +27,7 @@ sys.path.append("./Face_Vertification")
 from models.yunet import YuNet
 from models.sface import SFace
 
-st.title("🎈Face Verification App")
+st.title(" ✨ Face Verification App")
 
 # Khởi tạo Firestore Client bằng credentials từ file JSON
 db = firestore.Client.from_service_account_info(st.secrets)
