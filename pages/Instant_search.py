@@ -40,7 +40,7 @@ def load_images_from_folder(folder_path):
 def visualize_features(image, keypoints, title):
     # Vẽ keypoints lên ảnh
     img_with_kp = cv2.drawKeypoints(image, keypoints, None, color=(0,255,0))
-    st.image(img_with_kp, caption=title, channels="BGR", use_column_width=True)
+    st.image(img_with_kp, caption=title, channels="BGR", use_container_width=True)
 
 @st.cache_resource
 def extract_features(images, use_sift=True, use_orb=True, visualize=True):
@@ -145,7 +145,7 @@ def show_dataset_images():
                     with cols[j]:
                         st.image(displayed_images[index],
                                 caption=f"Image {index + 1}",
-                                use_column_width=True,
+                                use_container_width=True,
                                 channels="BGR")
 
 
@@ -241,7 +241,7 @@ def main():
                                 with cols[idx]:
                                     st.image(image, 
                                             caption=f"Similar {row_start + idx + 1}\nScore: {similarity:.3f}", 
-                                            use_column_width=True, 
+                                            use_container_width=True, 
                                             channels="BGR")
 
 # def extract_features(images, use_sift=True, use_orb=True):
