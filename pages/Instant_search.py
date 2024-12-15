@@ -169,80 +169,80 @@ def main():
         k = st.sidebar.slider('Chọn số lượng ảnh tương đồng cần hiển thị', 1, 30, 1)
         
         if st.sidebar.button('Tìm kiếm'):
-            with st.spinner('Đang xử lý...'):
-                # Load dataset images
-                dataset_images = load_images_from_folder(data_folder_path)
+            # with st.spinner('Đang xử lý...'):
+            # Load dataset images
+            dataset_images = load_images_from_folder(data_folder_path)
 
-                if not dataset_images:
-                    st.error("No images found in the specified folder.")
-                else:
-                    # with feature_tab:
-                        # st.subheader("2. Feature Detection")
-                        # Extract và visualize features
-                    ct = st.container(border=True)
-                    with ct:
-                        st.subheader("2. Query Image")
-                        st.image(query_image, channels="BGR", width=400)
-                        query_sift_descriptors, query_orb_descriptors = extract_features(
-                            [query_image], use_sift=use_sift, use_orb=use_orb
+            if not dataset_images:
+                st.error("No images found in the specified folder.")
+            else:
+                # with feature_tab:
+                    # st.subheader("2. Feature Detection")
+                    # Extract và visualize features
+                ct = st.container(border=True)
+                with ct:
+                    st.subheader("2. Query Image")
+                    st.image(query_image, channels="BGR", width=400)
+                    query_sift_descriptors, query_orb_descriptors = extract_features(
+                        [query_image], use_sift=use_sift, use_orb=use_orb
+                    )
+                                
+                # with histogram_tab:
+                    # st.subheader("3. Bag of Visual Words Histograms")
+                    # Extract features từ dataset
+                dataset_sift_descriptors, dataset_orb_descriptors = extract_features(
+                    dataset_images, use_sift=use_sift, use_orb=use_orb
+                )
+
+                # Create BOVW dictionaries
+                kmeans_sift = create_bovw_dictionary(
+                    dataset_sift_descriptors + query_sift_descriptors, 
+                    n_clusters=n_clusters
+                ) if use_sift else None
+                
+                kmeans_orb = create_bovw_dictionary(
+                    dataset_orb_descriptors + query_orb_descriptors, 
+                    n_clusters=n_clusters
+                ) if use_orb else None
+
+                # Compute và visualize histograms
+                query_histogram = compute_combined_histogram(
+                    query_sift_descriptors[0] if use_sift else np.array([]),
+                    query_orb_descriptors[0] if use_orb else np.array([]),
+                    kmeans_sift, kmeans_orb
+                )
+                cont = st.container(border=True)
+                with cont:
+                    # with results_tab:
+                    st.subheader("3. Search Results")
+                    # Compute histograms cho dataset
+                    dataset_histograms = []
+                    for i in range(len(dataset_images)):
+                        dataset_histogram = compute_combined_histogram(
+                            dataset_sift_descriptors[i] if use_sift else np.array([]),
+                            dataset_orb_descriptors[i] if use_orb else np.array([]),
+                            kmeans_sift, kmeans_orb
                         )
-                                    
-                    # with histogram_tab:
-                        # st.subheader("3. Bag of Visual Words Histograms")
-                        # Extract features từ dataset
-                    dataset_sift_descriptors, dataset_orb_descriptors = extract_features(
-                        dataset_images, use_sift=use_sift, use_orb=use_orb
-                    )
+                        dataset_histograms.append(dataset_histogram)
 
-                    # Create BOVW dictionaries
-                    kmeans_sift = create_bovw_dictionary(
-                        dataset_sift_descriptors + query_sift_descriptors, 
-                        n_clusters=n_clusters
-                    ) if use_sift else None
-                    
-                    kmeans_orb = create_bovw_dictionary(
-                        dataset_orb_descriptors + query_orb_descriptors, 
-                        n_clusters=n_clusters
-                    ) if use_orb else None
+                    # Tính similarity và hiển thị kết quả
+                    similarities = []
+                    for idx, histogram in enumerate(dataset_histograms):
+                        similarity = cosine_similarity([query_histogram], [histogram])[0][0]
+                        similarities.append((dataset_images[idx], similarity))
 
-                    # Compute và visualize histograms
-                    query_histogram = compute_combined_histogram(
-                        query_sift_descriptors[0] if use_sift else np.array([]),
-                        query_orb_descriptors[0] if use_orb else np.array([]),
-                        kmeans_sift, kmeans_orb
-                    )
-                    cont = st.container(border=True)
-                    with cont:
-                        # with results_tab:
-                        st.subheader("3. Search Results")
-                        # Compute histograms cho dataset
-                        dataset_histograms = []
-                        for i in range(len(dataset_images)):
-                            dataset_histogram = compute_combined_histogram(
-                                dataset_sift_descriptors[i] if use_sift else np.array([]),
-                                dataset_orb_descriptors[i] if use_orb else np.array([]),
-                                kmeans_sift, kmeans_orb
-                            )
-                            dataset_histograms.append(dataset_histogram)
+                    results = sorted(similarities, key=lambda x: x[1], reverse=True)
+                    results = results[:k]
 
-                        # Tính similarity và hiển thị kết quả
-                        similarities = []
-                        for idx, histogram in enumerate(dataset_histograms):
-                            similarity = cosine_similarity([query_histogram], [histogram])[0][0]
-                            similarities.append((dataset_images[idx], similarity))
-
-                        results = sorted(similarities, key=lambda x: x[1], reverse=True)
-                        results = results[:k]
-
-                        for row_start in range(0, len(results), 5):
-                            cols = st.columns(5)
-                            for idx, (image, similarity) in enumerate(results[row_start:row_start + 5]):
-                                if idx < len(cols):
-                                    with cols[idx]:
-                                        st.image(image, 
-                                                caption=f"Similar {row_start + idx + 1}\nScore: {similarity:.3f}", 
-                                                use_column_width=True, 
-                                                channels="BGR")
+                    for row_start in range(0, len(results), 5):
+                        cols = st.columns(5)
+                        for idx, (image, similarity) in enumerate(results[row_start:row_start + 5]):
+                            if idx < len(cols):
+                                with cols[idx]:
+                                    st.image(image, 
+                                            caption=f"Similar {row_start + idx + 1}\nScore: {similarity:.3f}", 
+                                            use_column_width=True, 
+                                            channels="BGR")
 
 # def extract_features(images, use_sift=True, use_orb=True):
 #     # Initialize feature detectors
