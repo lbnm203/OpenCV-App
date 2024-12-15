@@ -10,12 +10,12 @@ from streamlit_drawable_canvas import st_canvas
 # import torch.nn as nn
 # import torch.nn.functional as F
 
-st.set_page_config(
-    page_title="🎈Hand Writing Regconition Applications",
-    # page_icon=Image.open("./images/Logo/logo_welcome.png"),
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
+# st.set_page_config(
+#     page_title="🎈Hand Writing Regconition Applications",
+#     # page_icon=Image.open("./images/Logo/logo_welcome.png"),
+#     layout="wide",
+#     initial_sidebar_state="expanded",
+# )
 st.title(" ✨ Handwriting Letter Recognize Application")
 
 
