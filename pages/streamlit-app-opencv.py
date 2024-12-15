@@ -485,6 +485,7 @@ if choice == 'Haar Cascade':
     # pass
 
 if choice == 'Face Verification':
+    st.title(" ✨ Face Verification App")
     fv.App()
 
 if choice == 'Semantic Keypoint Detection':
