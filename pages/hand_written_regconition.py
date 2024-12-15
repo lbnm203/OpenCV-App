@@ -16,7 +16,6 @@ from streamlit_drawable_canvas import st_canvas
 #     layout="wide",
 #     initial_sidebar_state="expanded",
 # )
-st.title(" ✨ Handwriting Letter Recognize Application")
 
 
 def predict_with_image(image):
@@ -198,6 +197,7 @@ def Training():
 
 
 def Text():
+    st.title(" ✨ Handwriting Letter Recognize Application")
     st.header("1. Tập dữ liệu MNIST")
     st.markdown(
         """
