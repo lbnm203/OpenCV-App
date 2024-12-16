@@ -14,13 +14,15 @@ import Instant_search as ints
 import boost_tracking as bt
 import sort_app as sa
 import hand_written_regconition as hwr
+import image_processing as ip
 
 
 st.set_page_config(layout='wide')
 
 choice = st.sidebar.selectbox(
     "Chọn thuật toán", ['GrabCut', 'WaterShed', 'Haar Cascade', 'Face Vertification', 'Semantic Keypoint Detection',
-                        'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT', "Hand Writting Recognition"], key="algorithm_selector")
+                        'Keypoint Matching', 'Instant Search', 'Boost Tracking', 'SORT', 'Hand Writting Recognition',
+                        'Image Processing'], key="algorithm_selector")
 
 if choice == 'GrabCut':
     ga.use()
@@ -505,3 +507,6 @@ if choice == 'SORT':
 
 if choice == 'Hand Writting Recognition':
     hwr.Text()
+
+if choice == 'Image Processing':
+    ip.main()
