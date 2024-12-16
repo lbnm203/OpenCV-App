@@ -126,8 +126,8 @@ def main():
         with col1:
             st.image(image, caption="Original Image", use_column_width=True)
 
-        if st.button("Crop"):
-            with col2:
-                image = crop_image(image, int(x_start), int(y_start), int(crop_width), int(crop_height))
-                st.image(image, caption="Cropped Image", use_column_width=True)
+        # if st.button("Crop"):
+        with col2:
+            image = crop_image(image, int(x_start), int(y_start), int(crop_width), int(crop_height))
+            st.image(image, caption="Cropped Image", use_column_width=True)
 
