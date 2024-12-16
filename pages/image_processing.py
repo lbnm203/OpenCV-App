@@ -116,12 +116,12 @@ def main():
     st.divider()
     crop_uploader = st.file_uploader("Upload ảnh để cắt ảnh", type=["jpg", "png", "jpeg"])
     if crop_uploader is not None:
+        image = Image.open(crop_uploader)
+        image = np.array(image)
         x_start = st.slider("X Start", min_value=0, max_value=image.shape[1] - 1, value=0)
         y_start = st.slider("Y Start", min_value=0, max_value=image.shape[0] - 1, value=0)
         crop_width = st.slider("Crop Width", min_value=1, max_value=image.shape[1] - x_start, value=image.shape[1])
         crop_height = st.slider("Crop Height", min_value=1, max_value=image.shape[0] - y_start, value=image.shape[0])
-        image = Image.open(crop_uploader)
-        image = np.array(image)
         col1, col2 = st.columns(2)
         with col1:
             st.image(image, caption="Original Image", use_column_width=True)
