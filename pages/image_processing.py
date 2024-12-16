@@ -37,12 +37,10 @@ def translate_image(image, x, y):
 def crop_image(image, x_start, y_start, width, height):
     return image[y_start:y_start + height, x_start:x_start + width]
 
-st.title(" ✨ Image Processing Application")
-
-
-st.markdown("- Ứng dụng này sẽ giúp thực hiện các kỹ thuật xử lý ảnh cơ bản như: Flip, Rotation, Colorspace, Translation, Cropping.")
 
 def main():
+    st.title(" ✨ Image Processing Application")
+    st.markdown("- Ứng dụng này sẽ giúp thực hiện các kỹ thuật xử lý ảnh cơ bản như: Flip, Rotation, Colorspace, Translation, Cropping.")
 # Flip
     st.subheader("1. Flip")
     st.divider()
